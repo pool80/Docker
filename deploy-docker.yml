@@ -15,7 +15,7 @@
         - device-mapper-persistent-data
         - lvm2
         - python-pip
-      state: installed
+      state: present
 
   - name: set up the stable repository
     get_url:
@@ -28,7 +28,7 @@
         - docker-ce
         - docker-ce-cli
         - containerd.io
-      state: installed
+      state: present
 
   - name: start and enable Docker
     service: name=docker state=started enabled=yes
