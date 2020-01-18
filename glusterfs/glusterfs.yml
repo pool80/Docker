@@ -1,0 +1,7 @@
+- name: Glusterfs
+  hosts: all
+  become: True
+  roles:
+    - {role: docker, tags: ['docker']}
+    - {role: glusterfs, tags: ['glusterfs']}
+    - {role: fail2ban, tags: ['fail2ban']}

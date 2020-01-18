@@ -1,0 +1,4 @@
+[test_servers]
+test1 ansible_host=gcp1
+test2 ansible_host=gcp2
+test3 ansible_host=gcp3

@@ -1,0 +1,10 @@
+[sshd]
+enabled = true
+port = ssh
+maxretry = 3
+findtime = 86400
+
+bantime = 604800 
+# 7days, set to negative number for permanent ban
+
+

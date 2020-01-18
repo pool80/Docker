@@ -1,0 +1,20 @@
+---
+# tasks file for glusterfs
+- name: Create a directory if it does not exist
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: 
+    - /etc/glusterfs
+    - /var/lib/glusterd
+    - /var/log/glusterfs
+  tags: glusterfs
+
+- name: pull docker image Glusterfs
+  command: docker pull gluster/gluster-centos
+  tags: glusterfs
+
+- name: run docker container Glusterfs
+  command: docker run -v /etc/glusterfs:/etc/glusterfs:z -v /var/lib/glusterd:/var/lib/glusterd:z -v /var/log/glusterfs:/var/log/glusterfs:z -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged=true --net=host -v /dev/:/dev gluster/gluster-centos
+  tags: glusterfs
