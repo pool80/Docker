@@ -5,8 +5,8 @@
 
   tasks:
 
- # - name: yum update
- #   yum: name=* state=latest
+  - name: yum update
+    yum: name=* state=latest
 
   - name: install required packages
     yum:
@@ -16,11 +16,15 @@
         - lvm2
         - python-pip
       state: present
+    tags:
+      - docker
 
   - name: set up the stable repository
     get_url:
       url: https://download.docker.com/linux/centos/docker-ce.repo
       dest: /etc/yum.repos.d/docer-ce.repo
+    tags:
+      - docker
 
   - name: install Docker
     yum:
@@ -29,9 +33,18 @@
         - docker-ce-cli
         - containerd.io
       state: present
+    tags:
+      - docker
+  
+  - name: Add your user to the docker group.
+    command: usermod -aG docker $USER
+    tags:
+      - docker    
 
   - name: start and enable Docker
     service: name=docker state=started enabled=yes
+    tags:
+      - docker
 
   - name: Download docker-compose
     get_url:
